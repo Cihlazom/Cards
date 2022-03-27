@@ -20,6 +20,9 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
         }
     }
     
+    private var anchorPoint: CGPoint = CGPoint(x: 0, y: 0)
+    private var startTouchPoint: CGPoint!
+    
     var flipCompletionHandler: ((FlippableView) -> Void)?
     
     var cornerRadius = 20
@@ -96,10 +99,6 @@ class CardView<ShapeType: ShapeLayerProtocol>: UIView, FlippableView {
         view.layer.cornerRadius = CGFloat(cornerRadius)
         return view
     }
-    
-    
-    private var anchorPoint: CGPoint = CGPoint(x: 0, y: 0)
-    private var startTouchPoint: CGPoint!
     
     func flip() {
         let fromView = isFlipped ? frontSideView : backSideView

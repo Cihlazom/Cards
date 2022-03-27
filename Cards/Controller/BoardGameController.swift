@@ -9,12 +9,6 @@ import UIKit
 
 class BoardGameController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
     private var cardSize: CGSize  {
         CGSize(width: 80, height: 120)
     }
@@ -33,6 +27,20 @@ class BoardGameController: UIViewController {
     
     private var flippedCards = [UIView]()
     
+    lazy var startButtonView = getStartButtonView()
+    lazy var boardGameView = getBoardGameView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func loadView() {
+        super.loadView()
+        
+        view.addSubview(startButtonView)
+        view.addSubview(boardGameView)
+    }
+    
     private func getNewGame() -> Game {
         let game = Game()
         game.cardsCount = self.cardsPairsCounts
@@ -40,7 +48,6 @@ class BoardGameController: UIViewController {
         return game
     }
     
-    lazy var startButtonView = getStartButtonView()
     @objc func startGame(_ sender: UIButton) {
         game = getNewGame()
         let cards = getCardsBy(modelData: game.cards)
@@ -62,13 +69,9 @@ class BoardGameController: UIViewController {
         button.layer.cornerRadius = 10
         
         button.addTarget(nil, action: #selector(startGame(_:)), for: .touchUpInside)
-//        button.addAction(UIAction(title: "", handler: { action in
-//            print("Button was pressed")
-//        }), for: .touchUpInside)
         
         return button
     }
-    lazy var boardGameView = getBoardGameView()
     
     private func getBoardGameView() -> UIView {
         let margin: CGFloat = 10
@@ -159,12 +162,5 @@ class BoardGameController: UIViewController {
             
             boardGameView.addSubview(card)
         }
-    }
-    
-    override func loadView() {
-        super.loadView()
-        
-        view.addSubview(startButtonView)
-        view.addSubview(boardGameView)
     }
 }
